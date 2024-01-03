@@ -1,8 +1,15 @@
-const personDAO = require("../dao/person.js");
-class PeersonService {
-  createPerson(personDto) {
-    const { firstName, lastName, email } = personDto;
-    return personDAO.createPerson(firstName, lastName, email);
+const db = require("../db/db.js");
+class PersonDAO {
+  async createPerson(firstName, lastName, email) {
+    const [id] = await db("person")
+      .insert({
+        first_name: firstName,
+        last_name: lastName,
+        email,
+      })
+      .returning("id");
+
+    return id;
   }
 }
-module.exports = new PeersonService();
+module.exports = new PersonDAO();
