@@ -1,15 +1,10 @@
-const db = require("../db/db.js");
-class PersonDAO {
-  async createPerson(firstName, lastName, email) {
-    const [id] = await db("person")
-      .insert({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-      })
-      .returning("id");
+const personDAO = require("../dao/person");
 
-    return id;
+class PersonService {
+  createPerson(personDto) {
+    const { first_name, last_name, email } = personDto;
+    return personDAO.createPerson(first_name, last_name, email);
   }
 }
-module.exports = new PersonDAO();
+
+module.exports = new PersonService();
