@@ -1,9 +1,4 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-
-//new changes i wanted to do
+// npx knex migrate:make init --migrations-directory db/migrations
 exports.up = function (knex) {
   return knex.schema.createTable("person", (table) => {
     table.increments("id");
@@ -14,12 +9,6 @@ exports.up = function (knex) {
   });
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-
-// roll back changes
 exports.down = function (knex) {
   return knex.schema.dropTable("person");
 };
